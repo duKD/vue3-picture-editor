@@ -1,2 +1,3 @@
-# vue3-picture-editor
-base fabric to edit  picture
+# 介绍
+
+一个 基于 fabric vue3 ts 的图片编辑器
