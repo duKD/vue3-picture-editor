@@ -5,6 +5,8 @@ import _initControl from "./initControl";
 import _initGuideLine from "./initGuideLine";
 import _initDrag from "./api/drag";
 import _initEditorEvent from "./api/event";
+import _initGroup from "./api/group";
+import _initHistory from "./api/history";
 
 export type EditorOPtions = {
   id: string;
@@ -32,6 +34,7 @@ export class Editor extends EventEmitter {
     this.canvas = new fabric.Canvas(id, {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 画布禁止默认右键菜单
+      preserveObjectStacking: true, // 指示对象在选中时是否应保持在当前堆栈位置。
       controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
       imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
       fill: this.opt?.bg || "#999",
@@ -47,6 +50,8 @@ export class Editor extends EventEmitter {
     _initWorkSpace(options);
     // 初始化画布相关事件
     _initEditorEvent();
+    _initGroup();
+    _initHistory();
   }
 }
 

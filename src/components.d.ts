@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseAttrs: typeof import('./components/rightAttrBar/base-attrs.vue')['default']
     DefaultTemplate: typeof import('./components/default-template.vue')['default']
     DragMode: typeof import('./components/drag-mode.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -18,13 +19,23 @@ declare module 'vue' {
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
+    ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    HandleGroup: typeof import('./components/rightAttrBar/handle-group.vue')['default']
+    HistoryBtn: typeof import('./components/historyBtn.vue')['default']
+    MultipleAlign: typeof import('./components/rightAttrBar/multiple-align.vue')['default']
+    ReplaceImg: typeof import('./components/rightAttrBar/replace-img.vue')['default']
     RightAttrBar: typeof import('./components/rightAttrBar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SetAlign: typeof import('./components/rightAttrBar/set-align.vue')['default']
     SetBg: typeof import('./components/rightAttrBar/set-bg.vue')['default']
+    SetLock: typeof import('./components/rightAttrBar/set-lock.vue')['default']
     SetSize: typeof import('./components/rightAttrBar/set-size.vue')['default']
+    ToClone: typeof import('./components/rightAttrBar/to-clone.vue')['default']
+    ToDel: typeof import('./components/rightAttrBar/to-del.vue')['default']
     Zoom: typeof import('./components/zoom.vue')['default']
   }
 }

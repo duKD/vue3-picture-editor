@@ -13,6 +13,9 @@ import WindiCSS from "vite-plugin-windicss";
 const pathSrc = path.resolve(__dirname, "src");
 
 export default defineConfig({
+  server: {
+    host: "0.0.0.0",
+  },
   resolve: {
     alias: [
       {

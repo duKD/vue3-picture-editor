@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-container class="h-100vh w-100vw">
+    <el-container class="h-full w-full">
       <el-header
         class="h-64px border-b-1px flex items-center justify-between px-20px"
       >
@@ -9,14 +9,18 @@
             <img :src="logoUrl" alt="logo" />
           </div>
         </div>
-        <div class="w-1/4">
-          <el-button>预览</el-button>
+        <div class="w-1/4 flex">
+          <el-button @click="download">下载</el-button>
+          <!-- 记录操作 -->
+          <history-btn />
         </div>
       </el-header>
       <el-container class="relative flex">
         <!-- 左侧菜单 -->
         <section
-          :class="`flex relative ${allPageState.toolsBarShow && 'w-420px'}`"
+          :class="`flex relative flex-shrink-0 flex-grow-0 ${
+            allPageState.toolsBarShow && 'w-420px'
+          }`"
         >
           <section class="w-60px border-r-1px">
             <div
@@ -63,7 +67,9 @@
         <!-- 右侧菜单 -->
         <section
           v-show="allPageState.attrBarShow"
-          :class="`relative ${allPageState.attrBarShow && 'w-360px'}`"
+          :class="`relative flex-shrink-0 flex-grow-0 ${
+            allPageState.attrBarShow && 'w-360px'
+          }`"
         >
           <right-attr-bar />
         </section>
@@ -89,11 +95,12 @@ import {
   watchEffect,
 } from "vue";
 import { createEditor } from "@/core";
-
+import { download } from "@/core/api/server";
 import defaultTemplate from "@/components/default-template.vue";
 import dragMode from "@/components/drag-mode.vue";
 import zoom from "@/components/zoom.vue";
 import rightAttrBar from "@/components/rightAttrBar/index.vue";
+import historyBtn from "@/components/historyBtn.vue";
 import logoUrl from "@/assets/logo.svg?url";
 
 const menuList = ref<
@@ -143,6 +150,8 @@ const switchAttrBar = () => {
 };
 
 const workspaceEl = ref<HTMLElement>();
+
+// 创建 编辑器实例 必须放在根组件中进行
 const editor = createEditor({
   id: "canvas",
   options: {
@@ -163,6 +172,7 @@ onMounted(() => {
 .home {
   height: 100vh;
   width: 100vw;
+  min-width: 1380px;
 }
 
 // 关闭按钮
@@ -206,5 +216,6 @@ onMounted(() => {
   position: relative;
   background: #f1f1f1;
   overflow: hidden;
+  min-width: 600px;
 }
 </style>

@@ -16,36 +16,33 @@ export const getWorker = () => {
 // 设置对应的 比例 并且让画布居中显示
 const setZoom = (scale: number) => {
   const _workspaceEl = getEditorWorkspaceEl();
-  const _canvas = getEditorCanvas();
+  const canvas = getEditorCanvas();
 
   const width = _workspaceEl.offsetWidth;
   const height = _workspaceEl.offsetHeight;
-  _canvas.setWidth(width);
-  _canvas.setHeight(height);
-  const center = _canvas.getCenter();
+  canvas.setWidth(width);
+  canvas.setHeight(height);
+  const center = canvas.getCenter();
   // 以中心点缩放
-  _canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
+  canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
 
   const objCenter = _worker.getCenterPoint();
 
-  const viewportTransform = _canvas.viewportTransform;
+  const viewportTransform = canvas.viewportTransform;
   if (!viewportTransform) return;
-  if (!_canvas.width || !_canvas.height) return;
-  viewportTransform[4] = _canvas.width / 2 - objCenter.x * viewportTransform[0];
-  viewportTransform[5] =
-    _canvas.height / 2 - objCenter.y * viewportTransform[3];
+  if (!canvas.width || !canvas.height) return;
+  viewportTransform[4] = canvas.width / 2 - objCenter.x * viewportTransform[0];
+  viewportTransform[5] = canvas.height / 2 - objCenter.y * viewportTransform[3];
   _worker.clone((clone: fabric.Rect) => {
-    _canvas.clipPath = clone;
-    _canvas.renderAll();
+    canvas.clipPath = clone;
+    canvas.renderAll();
   });
-
-  _canvas.setViewportTransform(viewportTransform);
-  _canvas.renderAll();
+  canvas.setViewportTransform(viewportTransform);
+  canvas.renderAll();
 };
 
 const auto = () => {
   const scale = getScale();
-
   setZoom(scale - 0.08);
 };
 
@@ -67,10 +64,10 @@ const getScale = () => {
 };
 
 export const resetWorkSpace = () => {
-  const _canvas = getEditorCanvas();
+  const canvas = getEditorCanvas();
   const editor = getEditor();
   const options = editor.opt.options;
-  _worker = _canvas
+  _worker = canvas
     .getObjects()
     .find((item) => item.id === workspaceKey) as fabric.Rect;
 
@@ -79,7 +76,7 @@ export const resetWorkSpace = () => {
     width: options.width,
     height: options.height,
   });
-  _canvas.renderAll();
+  canvas.renderAll();
   auto();
 };
 
@@ -113,15 +110,15 @@ export const setSize = (width: number, height: number) => {
 // 设置画布工作区
 export default function initWorkSpace(opt: { width: number; height: number }) {
   let options = opt;
-  const _canvas = getEditorCanvas();
+  const canvas = getEditorCanvas();
   let _workspaceEl = getEditorWorkspaceEl();
 
   const { width, height } = options;
   const { offsetWidth, offsetHeight } = _workspaceEl;
 
-  _canvas.setWidth(offsetWidth);
-  _canvas.setHeight(offsetHeight);
-  _canvas.renderAll();
+  canvas.setWidth(offsetWidth);
+  canvas.setHeight(offsetHeight);
+  canvas.renderAll();
   //setWorkSpace 设置工作区
   _worker = new fabric.Rect({
     id: workspaceKey,
@@ -135,8 +132,8 @@ export default function initWorkSpace(opt: { width: number; height: number }) {
   _worker.set("hasControls", false);
   _worker.hoverCursor = "default";
 
-  _canvas.add(_worker);
-  _canvas.renderAll();
+  canvas.add(_worker);
+  canvas.renderAll();
 
   // 监听 画布容器的尺寸变化
   const initResizeObserver = () => {
@@ -151,3 +148,7 @@ export default function initWorkSpace(opt: { width: number; height: number }) {
   // 开启
   initResizeObserver();
 }
+
+export const getDefaultSize = () => {
+  //   return _initViewPort;
+};

@@ -1,13 +1,8 @@
 import { getEditor } from "@/core";
 import { EditorEventName } from "@/core/api/event";
+import { SelectMode } from "@/core/type";
 import { fabric } from "fabric";
 import { onBeforeMount, onMounted, reactive } from "vue";
-
-export enum SelectMode {
-  EMPTY = "",
-  ONE = "one",
-  MULTI = "multiple",
-}
 
 type SelectInfo = {
   mode: SelectMode;
